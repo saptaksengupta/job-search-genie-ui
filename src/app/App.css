@@ -1,10 +1,17 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  padding: 55px 25px;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.autocomplete-searchbox {
+  border: 1px solid #efefef;
+  margin: 5px 0;
+  padding: 5px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
