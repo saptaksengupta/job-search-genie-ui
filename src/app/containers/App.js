@@ -9,7 +9,6 @@ import Col from 'react-bootstrap/Col';
 
 // Importing custom functional Components...
 import SearchBox from '../containers/SearchBox';
-import AutoCompleteList from '../containers/AutoCompleteList';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Row>
           <Col>
             <SearchBox></SearchBox>
-            <AutoCompleteList></AutoCompleteList>
           </Col>
           <Col></Col>
         </Row>
