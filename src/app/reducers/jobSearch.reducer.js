@@ -1,4 +1,4 @@
-import { SET_LOCATION } from "../actions/jobSearch.action";
+import { SET_LOCATION, SET_JOBS } from "../actions/jobSearch.action";
 
 
 export default (state = {
@@ -10,6 +10,12 @@ export default (state = {
             state = {
                 ...state,
                 location: action.payload
+            }
+            return state;
+        case SET_JOBS:
+            state = {
+                ...state,
+                jobs: action.payload
             }
             return state;
         default:

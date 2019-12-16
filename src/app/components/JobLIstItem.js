@@ -3,23 +3,27 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 export default class JobListItem extends React.Component {
+
+    onJobClick = (url) => {
+        window.open(url);
+    }
+
     render() {
+        const job = this.props.job;
         return (
-            <div className="job-list-item">
-                <h3 style={{ color: '#34495e' }}>Software Developer Full Stack</h3>
+            <div className="job-list-item" onClick={(e) => this.onJobClick(job.url)}>
+                <h3 style={{ color: '#34495e' }}>{job.title}</h3>
                 <Row className="loc-desc">
                     <Col>
                         <div>
-                            <span>Company: Vattenfall</span>
-                            ,&nbsp;Location: <span>Berlin</span>
+                            <span>Company: {job.company}</span>
+                            ,&nbsp;Location: <span>{job.location}</span>
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <div style={{color: '#7f8c8d'}}>
-                            Some Learge Desc, Some Learge Desc Some Learge Desc Some Learge Desc Some Learge Desc Some Learge Desc, Some Learge Desc
-                        </div>
+                        <div style={{color: '#7f8c8d'}} dangerouslySetInnerHTML={{__html: job.description}}></div>
                     </Col>
                 </Row>
             </div>
