@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import JobList from './JobList';
 
 // Importing react bootstrap components...
 import Container from 'react-bootstrap/Container';
@@ -14,11 +15,20 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Row>
-          <Col>
+        <Row className="justify-content-md-center">
+          <Col xs md="12" lg="4">
+            <h2>Job Search Genie</h2>
+          </Col>  
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col xs md="6" lg="4">
             <SearchBox></SearchBox>
           </Col>
-          <Col></Col>
+        </Row>
+        <Row style={{marginTop: '70px'}}>
+          <Col>
+            <JobList></JobList>
+          </Col>
         </Row>
       </Container>
     </div>

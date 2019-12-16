@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import AutoCompleteList from '../containers/AutoCompleteList';
 
 // Importing react bootstrap components...
 import Form from 'react-bootstrap/Form';
 
-export default class SearchBox extends React.Component {
+class SearchBox extends React.Component {
 
     state = {
         searchQuery: ''
@@ -18,10 +20,12 @@ export default class SearchBox extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{ textAlign: 'left' }}>
                 <Form.Control size="lg" type="text" placeholder="Location" onKeyUp={this.handleSearchChange} />
                 <AutoCompleteList searchQuery={this.state.searchQuery}></AutoCompleteList>
             </div>
         );
     }
 }
+
+export default connect(null, null)(SearchBox);

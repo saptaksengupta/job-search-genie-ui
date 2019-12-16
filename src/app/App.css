@@ -12,6 +12,39 @@
   border: 1px solid #efefef;
   margin: 5px 0;
   padding: 5px;
+  z-index: 100;
+  position: absolute;
+  width: 92%;
+  background-color: #efefef;
+}
+
+.autocomplete-searchbox ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+.autocomplete-searchbox ul li {
+  list-style: none;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.autocomplete-searchbox ul li:hover {
+  background-color: #7f8c8d;
+  color: white;
+  border-radius: 5px;
+}
+
+.job-list-item {
+  border: 1px solid #efefef;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.loc-desc {
+  color: #7f8c8d;
+  font-size: 17px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

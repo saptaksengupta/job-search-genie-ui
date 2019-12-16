@@ -1,7 +1,10 @@
 import React from 'react';
-import LocationsHelper from '../mock/locations';
+import { connect } from 'react-redux';
 
-export default class AutoCompleteList extends React.Component {
+import LocationsHelper from '../mock/locations';
+import { setLocation } from '../actions/jobSearch.action';
+
+class AutoCompleteList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -9,7 +12,8 @@ export default class AutoCompleteList extends React.Component {
             locations: [],
             searchTerm: "",
             searchLoading: false,
-            searchResults: []
+            searchResults: [],
+            shouldShowSuggessionList: false
         }
     }
 
@@ -22,6 +26,10 @@ export default class AutoCompleteList extends React.Component {
         if (prevProps.searchQuery !== this.props.searchQuery) {
             // just to trigger the search `300` ms delay from last key stroke...
             this.debounce(this.doSearch.bind(this.props.searchQuery), 300)();
+        }
+
+        if ( !this.state.shouldShowSuggessionList ) {
+            return null;
         }
     }
 
@@ -52,19 +60,24 @@ export default class AutoCompleteList extends React.Component {
             }
             return acc;
         }, []);
-        this.setState({ searchResults });
+        this.setState({ searchResults: searchResults, shouldShowSuggessionList: true });
     }
 
     onLocationSelect = ( locationText ) => {
-        
+        this.setState({
+            shouldShowSuggessionList: false
+        });
+        // TODO: Dispatch event,
+        // to set it into the global store
+        this.props.setLocation(locationText);
     }
 
     render() {
-        if (!this.props.searchQuery) {
+        if (!this.props.searchQuery || this.state.shouldShowSuggessionList === false) {
             return null;
         }
         const locationList = this.state.searchResults.map((elem) =>
-            <li key={elem.id} onClick={this.onLocationSelect(elem.locationText)}> {elem.locationText} </li>
+            <li className="location-list" key={elem.id} onClick={ (e) => this.onLocationSelect(elem.locationText) }> {elem.locationText} </li>
         );
         return (
             <div className="autocomplete-searchbox">
@@ -74,3 +87,13 @@ export default class AutoCompleteList extends React.Component {
     }
 
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLocation: (location) => {
+            dispatch(setLocation(location))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AutoCompleteList);
