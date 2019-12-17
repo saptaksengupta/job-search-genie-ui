@@ -28,7 +28,7 @@ class AutoCompleteList extends React.Component {
             this.debounce(this.doSearch.bind(this.props.searchQuery), 300)();
         }
 
-        if ( !this.state.shouldShowSuggessionList ) {
+        if (!this.state.shouldShowSuggessionList) {
             return null;
         }
     }
@@ -46,14 +46,13 @@ class AutoCompleteList extends React.Component {
 
     doSearch = searchQuery => {
         this.setState({
-            searchTerm: searchQuery,
             searchLoading: true
         }, () => this.filterLocations());
     }
-
+    
     filterLocations = () => {
         const locations = [...this.state.locations];
-        const regex = new RegExp(this.state.searchTerm, 'gi');
+        const regex = new RegExp(this.props.searchQuery, 'gi');
         const searchResults = locations.reduce((acc, location) => {
             if (location.locationText && location.locationText.match(regex)) {
                 acc.push(location);
@@ -63,7 +62,7 @@ class AutoCompleteList extends React.Component {
         this.setState({ searchResults: searchResults, shouldShowSuggessionList: true });
     }
 
-    onLocationSelect = ( locationText ) => {
+    onLocationSelect = (locationText) => {
         this.setState({
             shouldShowSuggessionList: false
         });
@@ -76,9 +75,16 @@ class AutoCompleteList extends React.Component {
         if (!this.props.searchQuery || this.state.shouldShowSuggessionList === false) {
             return null;
         }
-        const locationList = this.state.searchResults.map((elem) =>
-            <li className="location-list" key={elem.id} onClick={ (e) => this.onLocationSelect(elem.locationText) }> {elem.locationText} </li>
-        );
+
+        let locationList = '';
+        if (this.state.searchResults.length === 0) {
+            locationList = <li>No Matches found, try something else</li>
+        } else {
+            locationList = this.state.searchResults.map((elem) =>
+                <li className="location-list" key={elem.id} onClick={(e) => this.onLocationSelect(elem.locationText)}> {elem.locationText} </li>
+            );
+        }
+
         return (
             <div className="autocomplete-searchbox">
                 <ul>{locationList}</ul>
